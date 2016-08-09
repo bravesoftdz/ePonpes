@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/07/20 13:43:41.000.378,D:\SharedProjects\Projects\AMS\AMSServer.dproj=D:\SharedProjects\Projects\AMS\SDIAPP.dproj</Transaction>
+    <Transaction>2016/07/20 13:48:40.000.919,D:\SharedProjects\Projects\AMS\Server\ABOUT.PAS=</Transaction>
+    <Transaction>2016/07/20 13:55:50.000.277,=D:\SharedProjects\Projects\AMS\model\uAsset.pas</Transaction>
+    <Transaction>2016/07/20 14:08:13.000.616,D:\SharedProjects\Projects\AMS\model\uAsset.pas=</Transaction>
+    <Transaction>2016/07/20 14:08:57.000.197,=D:\SharedProjects\Projects\AMS\model\uModel.pas</Transaction>
+    <Transaction>2016/07/26 14:50:44.000.093,=D:\SharedProjects\Projects\AMS\Server\Unit1.pas</Transaction>
+    <Transaction>2016/07/26 14:52:10.000.136,D:\SharedProjects\Projects\AMS\Server\Unit1.pas=D:\SharedProjects\Projects\AMS\SharedLib\uISQLRemote.pas</Transaction>
+    <Transaction>2016/07/26 14:56:21.000.307,=D:\SharedProjects\Projects\AMS\Server\Unit1.pas</Transaction>
+    <Transaction>2016/07/26 14:56:55.000.661,D:\SharedProjects\Projects\AMS\Server\Unit1.pas=D:\SharedProjects\Projects\AMS\Server\uServerMethod.pas</Transaction>
+    <Transaction>2016/08/09 12:49:01.986,D:\SharedProjects\Projects\ePonpes\server\ePonpesServer.dproj=D:\SharedProjects\Projects\ePonpes\server\AMSServer.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
