@@ -21,7 +21,8 @@ uses
   mORMotSQLite3,       // SQLite3 engine as ORM core
   uADStanIntf, uADPhysManager, uADPhysODBCBase, uADPhysMSSQL, SynDBFireDAC,           // external DB access via ODBC
   uModel, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
-  cxControls, cxContainer, cxEdit, cxTextEdit, cxMemo, Generics.Collections;           // data model unit, shared between server and client;
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxMemo, Generics.Collections,
+  uADPhysPG;           // data model unit, shared between server and client;
 
 type
   TSDIAppForm = class(TForm)
@@ -41,6 +42,8 @@ type
     lblEngine: TLabel;
     lblDatabase: TLabel;
     edDatabase: TcxTextEdit;
+    adphyspgdrvrlnk1: TADPhysPgDriverLink;
+    procedure btn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FileNew1Execute(Sender: TObject);
     procedure btnStartClick(Sender: TObject);
@@ -92,13 +95,29 @@ begin
   Registry.Free;
 end;
 
+procedure TSDIAppForm.btn1Click(Sender: TObject);
+var
+  lUOM: TUOM;
+begin
+  lUOM := TUOM.Create;
+  with lUOM do
+  begin
+    Kode := IntToString(GetTickCount);
+    Nama := IntToString(GetTickCount);
+
+    RestServer.TransactionBegin(TUOM);
+    RestServer.Add(lUOM, True);
+    RestServer.Commit();
+  end;
+end;
+
 procedure TSDIAppForm.FormCreate(Sender: TObject);
 begin
   Caption := Caption + ' Ver : ' + GetAppVersion;
   PTypeInfo(TypeInfo(TRemoteSQLEngine))^.EnumBaseType^.AddCaptionStrings(cbbEngine.Items);
   cbbEngine.ItemIndex := 0;
 
-  if BacaRegistry('engine') = '' then
+  if BacaRegistry('engine') <> '' then
     cbbEngine.ItemIndex := cbbEngine.Items.IndexOf(String(BacaRegistry(String('engine'))));
 
   edPORT.Text     := String(BacaRegistry('port'));
@@ -106,9 +125,21 @@ begin
   edUser.Text     := String(BacaRegistry('user'));
   edPassword.Text := String(BacaRegistry('password'));
   edDatabase.Text := String(BacaRegistry('database'));
+
+//  cbbEngine.ItemIndex := cbbEngine.Items.IndexOf('PG');
+//
+//  edPORT.Text     := '5432';
+//  edServer.Text   := 'localhost';
+//  edUser.Text     := 'postgres';
+//  edPassword.Text := '1234';
+//  edDatabase.Text := 'ams';
+
+
 end;
 
 procedure TSDIAppForm.btnStartClick(Sender: TObject);
+var
+  sPortDB: string;
 begin
   if btnStart.Caption = 'Stop' then
   begin
@@ -119,9 +150,17 @@ begin
     btnStart.Font.Color := clRed;
     btnStart.Caption    := 'Start';
   end else begin
+    sPortDB := '1433';
+    if cbbEngine.Text = 'PG' then
+      sPortDB := '5432'
+    else if cbbEngine.Text = 'MYSQL' then
+      sPortDB := '3066';
+
     SQLite3Log.Family.Level := LOG_VERBOSE;
     SQLite3Log.Family.PerThreadLog := ptIdentifiedInOnFile;
-    Props := TSQLDBFireDACConnectionProperties.Create(RawUTF8(cbbEngine.Text) + '?Server=' + RawUTF8(edServer.Text) + ' ;Port=' + RawUTF8(edPORT.Text), RawUTF8(edDatabase.Text),RawUTF8(edUser.Text), RawUTF8(edPassword.Text));
+    Props := TSQLDBFireDACConnectionProperties.Create(RawUTF8(cbbEngine.Text) + '?Server=' + RawUTF8(edServer.Text) + ' ;Port=' + RawUTF8(sPortDB), RawUTF8(edDatabase.Text),RawUTF8(edUser.Text), RawUTF8(edPassword.Text));
+//    Props := TSQLDBFireDACConnectionProperties.Create('PG?Server=localhost;Port=5432','ams','postgres','1234');
+//    Props := TSQLDBFireDACConnectionProperties.Create(RawUTF8(cbbEngine.Text) + '?Server= '+ RawUTF8(edServer.Text) + ';Port=5432','eponpes','postgres','1234');
     Props.StoreVoidStringAsNull := False;
     try
       // get the shared data model

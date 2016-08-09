@@ -2191,4 +2191,8 @@ object SDIAppForm: TSDIAppForm
     Height = 287
     Width = 359
   end
+  object adphyspgdrvrlnk1: TADPhysPgDriverLink
+    Left = 176
+    Top = 240
+  end
 end
