@@ -21,10 +21,7 @@ uses
   mORMotSQLite3,       // SQLite3 engine as ORM core
   uADStanIntf, uADPhysManager, uADPhysODBCBase, uADPhysMSSQL, SynDBFireDAC,           // external DB access via ODBC
   uModel, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
-  cxControls, cxContainer, cxEdit, cxTextEdit,
-  cxMemo;           // data model unit, shared between server and client;
-
-  // data model unit, shared between server GIT;
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxMemo;           // data model unit, shared between server and client;
 
 type
   TSDIAppForm = class(TForm)
