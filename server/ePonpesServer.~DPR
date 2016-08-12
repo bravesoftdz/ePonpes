@@ -1,7 +1,6 @@
 program ePonpesServer;
 
 uses
-  FastMM4 in '..\..\..\Framework\FastMM4\FastMM4.pas',
   Forms,
   SDIMAIN in 'SDIMAIN.PAS' {SDIAppForm},
   uModel in '..\model\uModel.pas',

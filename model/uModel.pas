@@ -2,7 +2,7 @@ unit uModel;
 
 interface
 uses
-  mORMot, mORMotDB, SynCommons, Generics.Collections, Contnrs;
+  mORMot, mORMotDB, SynCommons,  Contnrs;
 type
   TModel = class(TSQLRecord)
     public
